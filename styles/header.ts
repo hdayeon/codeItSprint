@@ -10,7 +10,8 @@ export const HeaderLayout = styled.div`
 `;
 
 export const HeaderBox = styled.div`
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   height: 100%;
   display: flex;
   align-items: center;
