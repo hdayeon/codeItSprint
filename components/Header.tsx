@@ -1,10 +1,17 @@
+"use client";
 import React from "react";
+import * as S from "../styles/header";
+import Link from "next/link";
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
-    <div>
-      <div>Header</div>
-    </div>
+    <S.HeaderLayout>
+      <S.HeaderBox>
+        <Link href="/">
+          <S.LogoBox />
+        </Link>
+      </S.HeaderBox>
+    </S.HeaderLayout>
   );
 };
 
