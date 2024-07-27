@@ -14,7 +14,7 @@ const Todo: React.FC = () => {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_APP_SERVER_URL}/items`
       );
-      const { todos } = await res.json();
+      const todos = await res.json();
       setTodos(todos);
     };
 
@@ -52,6 +52,28 @@ const Todo: React.FC = () => {
     }
   };
 
+  const toggleTodoDone = async (id: number) => {
+    const updatedTodos = todos.map((item) =>
+      item.id === id ? { ...item, isCompleted: !item.isCompleted } : item
+    );
+    setTodos(updatedTodos);
+
+    try {
+      const updatedTodo = updatedTodos.find((item) => item.id === id);
+      if (updatedTodo) {
+        await fetch(`${process.env.NEXT_PUBLIC_APP_SERVER_URL}/items/${id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ isCompleted: updatedTodo.isCompleted }),
+        });
+      }
+    } catch (error) {
+      console.error("todo 완료 상태 변경 실패", error);
+    }
+  };
+
   return (
     <S.HomeLayout>
       <S.HomeInputRow>
@@ -66,16 +88,32 @@ const Todo: React.FC = () => {
         <S.TodoListSection>
           <TodoIcon />
           <S.TodoList>
-            {todos?.map((item, index) => (
-              <S.TodoListItem key={index}>
-                <S.TodoBtn></S.TodoBtn>
-                <S.TodoSpan>{item.name}</S.TodoSpan>
-              </S.TodoListItem>
-            ))}
+            {todos
+              ?.filter((item) => !item.isCompleted)
+              .map((item) => (
+                <S.TodoListItem key={item.id}>
+                  <S.TodoBtn
+                    onClick={() => toggleTodoDone(item.id)}
+                  ></S.TodoBtn>
+                  <S.TodoSpan>{item.name}</S.TodoSpan>
+                </S.TodoListItem>
+              ))}
           </S.TodoList>
         </S.TodoListSection>
         <S.DoneListSection>
           <DoneIcon />
+          <S.DoneList>
+            {todos
+              ?.filter((item) => item.isCompleted)
+              .map((item) => (
+                <S.DoneListItem key={item.id}>
+                  <S.DoneBtn onClick={() => toggleTodoDone(item.id)}>
+                    ⋁
+                  </S.DoneBtn>
+                  <S.DoneSpan>{item.name}</S.DoneSpan>
+                </S.DoneListItem>
+              ))}
+          </S.DoneList>
         </S.DoneListSection>
       </S.TodoListRow>
     </S.HomeLayout>

@@ -8,6 +8,7 @@ export const HomeLayout = styled.div`
   height: 100vh;
   margin: 24px auto 0;
   font-family: "NanumSquareR";
+  color: ${palette.slate800};
 `;
 
 export const HomeInputRow = styled.div`
@@ -74,6 +75,7 @@ export const TodoList = styled.ul`
 
 export const DoneList = styled.ul`
   width: 100%;
+  margin: 16px 0 0;
 `;
 
 export const TodoListItem = styled.li`
@@ -85,6 +87,20 @@ export const TodoListItem = styled.li`
   display: flex;
   align-items: center;
   gap: 16px;
+  margin-bottom: 16px;
+`;
+
+export const DoneListItem = styled.li`
+  width: 100%;
+  max-width: 588px;
+  height: 50px;
+  border-radius: 27px;
+  border: 2px solid ${palette.slate900};
+  background-color: ${palette.violet100};
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
 `;
 
 export const TodoBtn = styled.button`
@@ -96,23 +112,21 @@ export const TodoBtn = styled.button`
   margin-left: 14px;
 `;
 
+export const DoneBtn = styled.button`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid ${palette.violet600};
+  background-color: ${palette.violet600};
+  margin-left: 14px;
+  color: #fff;
+`;
+
 export const TodoSpan = styled.span`
   width: 100%;
 `;
 
-export const LogoBox = styled.div`
-  width: 151px;
-  height: 40px;
-  border-bottom: 1px solid ${palette.slate200};
-
-  ${media.medium`
-    margin: 0 24px;
-  `};
-
-  ${media.small`
-    margin: 0 16px;
-    width: 71px;
-    height: 40px;
-    background-image: url("/logoS.svg");
-  `};
+export const DoneSpan = styled.span`
+  width: 100%;
+  text-decoration: line-through;
 `;
