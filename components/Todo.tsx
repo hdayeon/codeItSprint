@@ -4,6 +4,7 @@ import * as S from "../styles/home";
 import TodoIcon from "../public/todo.svg";
 import DoneIcon from "../public/done.svg";
 import { TodoType } from "@/types/todo";
+import Link from "next/link";
 
 const Todo: React.FC = () => {
   const [todo, setTodo] = useState<string>("");
@@ -95,7 +96,10 @@ const Todo: React.FC = () => {
                   <S.TodoBtn
                     onClick={() => toggleTodoDone(item.id)}
                   ></S.TodoBtn>
-                  <S.TodoSpan>{item.name}</S.TodoSpan>
+
+                  <Link href={`/items/${item.id}`}>
+                    <S.TodoSpan>{item.name}</S.TodoSpan>
+                  </Link>
                 </S.TodoListItem>
               ))}
           </S.TodoList>
